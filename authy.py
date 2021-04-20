@@ -16,7 +16,7 @@ database = {}
 def deposit(amount):
 
     amount = amount
-
+    print(amount)
     print('How Much do you want to deposit')
 
 
@@ -34,22 +34,20 @@ def logout():
     login()
 
 
-
 def init():
     print('Welcome to bankPHP')
     try:
         have_account = int(input("Do you have account with us> 1(yes) 2(no) \n"))
         if have_account == 1:
-           login()
+            login()
         elif have_account == 2:
-           register()
+            register()
 
         else:
-           print('You selected invalid option ')
-           init()
+            print('You selected invalid option ')
+            init()
     except ValueError as ve:
         print(ve)
-
 
 
 def register():
@@ -83,12 +81,13 @@ def login():
     for accountNumber, items in database.items():
         print(accountNumber)
         for item in items:
+            print(item)
             acc_no = items['account_number']
             user_password = items['password']
             if acc_no == account_number_input:
                 if user_password == password:
                     print('LOGIN SUCCESSFUL')
-                    accountbalance()
+                    account_balance()
                     transaction()
     print('Invalid account number or password')
     response = input("are you sure you have account with us? YES or No \n")
@@ -101,10 +100,11 @@ def login():
         exit()
 
 
-def accountbalance():
+def account_balance():
     username = input("Enter your username")
     for account_number, user in database.items():
         for details in user:
+            print(details)
             owner = user['username']
             balance = user['balance']
             if owner == username:
@@ -114,6 +114,7 @@ def accountbalance():
                 print('Please supply username to check balance')
                 transaction()
 
+
 def transaction():
     print('What would you like to do')
     print('To make Deposit press 1')
@@ -122,13 +123,13 @@ def transaction():
     print('To exit press 5')
     selected_option = int(input('Select an option \n'))
     if selected_option == 1:
-       # deposit()
+        deposit(200)
 
     elif selected_option == 2:
-        #withdraw_cash()
+        withdraw_cash()
 
     elif selected_option == 3:
-         #check_balance()
+        check_balance()
 
     elif selected_option == 4:
         logout()
@@ -142,7 +143,3 @@ def transaction():
 
 
 init()
-
-
-
-
