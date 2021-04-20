@@ -1,37 +1,7 @@
 import random
 
-# -  Register
-# _ username, email, password
-
-# - userid  - generate user account
-# - Login
-# - (username or email), password
-
-# bank operation
-
-
-database = {}
-
-
-def deposit(amount):
-
-    amount = amount
-    print(amount)
-    print('How Much do you want to deposit')
-
-
-def withdraw_cash():
-    print('How Much do you want to withdraw')
-
-
-def check_balance():
-    balance = 500.00
-    print('Your balance is %f' % balance)
-
-
-def logout():
-    print("You have logged out successfully")
-    login()
+database = {8692483462: {"surname": "Jide", "firstname": "Tayo", "username": "jide1", "email": "jide@gmail.com",
+                         "password": 123456, "account_number": 8692483462, "balance": 500.00}}
 
 
 def init():
@@ -63,13 +33,8 @@ def register():
                                 "password": password, "account_number": account_number, "balance": balance}
     print('Your account has been created')
 
-    details = database[account_number]
-    print(details)
+    print(database)
     login()
-
-
-def generate_account_number():
-    return random.randrange(1111111111, 9999999999)
 
 
 def login():
@@ -78,18 +43,16 @@ def login():
     account_number_input = int(input('Enter you account number \n '))
     password = input("What is your password \n ")
 
-    for accountNumber, items in database.items():
-        print(accountNumber)
-        for item in items:
-            print(item)
-            acc_no = items['account_number']
-            user_password = items['password']
-            if acc_no == account_number_input:
-                if user_password == password:
-                    print('LOGIN SUCCESSFUL')
-                    account_balance()
-                    transaction()
-    print('Invalid account number or password')
+    user = loop_tru_database(account_number_input)
+
+    acc_no = user['account_number']
+    user_password = user['password']
+    if acc_no == account_number_input:
+        if user_password == password:
+            print('LOGIN SUCCESSFUL')
+            transaction()
+    else:
+        print('Invalid account number or password')
     response = input("are you sure you have account with us? YES or No \n")
     if response.lower() == 'yes':
         login()
@@ -98,21 +61,6 @@ def login():
     else:
         print('Invalid response')
         exit()
-
-
-def account_balance():
-    username = input("Enter your username")
-    for account_number, user in database.items():
-        for details in user:
-            print(details)
-            owner = user['username']
-            balance = user['balance']
-            if owner == username:
-                print('Welcome %s' % owner)
-                print("your account balance is %f" % balance)
-            else:
-                print('Please supply username to check balance')
-                transaction()
 
 
 def transaction():
@@ -142,4 +90,61 @@ def transaction():
     print("you selected %s" % selected_option)
 
 
-init()
+def logout():
+    print("You have logged out successfully")
+    login()
+
+
+def loop_tru_database(acc):
+    try:
+        if acc in database:
+            user = database[acc]
+            return user
+        else:
+            raise LookupError
+    except LookupError:
+        print("Account Number does not exist in our bank")
+
+
+def ask_todo_something_else():
+    response = input("Would you like to do something else? \n")
+    if response.lower() == 'yes':
+        login()
+        transaction()
+    elif response.lower() == 'no':
+        exit()
+    else:
+        print('Invalid response')
+        exit()
+
+
+def generate_account_number():
+    return random.randrange(1111111111, 9999999999)
+
+
+def deposit(amount):
+    amount = amount
+    print('You deposited %d' % amount)
+    ask_todo_something_else()
+
+
+def withdraw_cash():
+    print('How Much do you want to withdraw')
+
+
+def check_balance():
+    balance = 500.00
+    print('Your balance is %f' % balance)
+
+
+def account_balance():
+    account_number = int(input("Enter your username \n"))
+    user = loop_tru_database(account_number)
+    owner = user['account_number']
+    balance = user['balance']
+    if owner == account_number:
+        print("Your account balance is: %f" % balance)
+        transaction()
+    else:
+        print('Wrong Account Number supplied')
+        account_balance()

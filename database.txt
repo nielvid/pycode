@@ -1,0 +1,3 @@
+{'surname': 'ade', 'firstname': 'ojo', 'username': 'ojsco', 'email': 'ojo.com', 'password': '1234', 'accountnumber': 7231003431}
+ %c{'surname': 'ade', 'firstname': 'ojo', 'username': 'ojsco', 'email': 'ojo.com', 'password': '1234', 'accountnumber': 7231003431}{'surname': 'ade', 'firstname': 'ojo', 'username': 'ojsco', 'email': 'ojo.com', 'password': '1234', 'accountnumber': 7231003431}
+{'surname': 'ade', 'firstname': 'ojo', 'username': 'ojsco', 'email': 'ojo.com', 'password': '1234', 'accountnumber': 7231003431}
